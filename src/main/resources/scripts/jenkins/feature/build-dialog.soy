@@ -65,6 +65,22 @@
  * @param key
  * @param value
  */
+{template .addHiddenParameter}
+    <div id="jenkins-form-{$count}" class="jenkins-form">
+        <input class="hiddenParam"
+            data="{$key}"
+            id="build-param-value-{$count}"
+            type="hidden"
+            name="build-param-value-{$count}"
+            value="{$value}">
+    </div>
+{/template}
+
+/**
+ * @param count
+ * @param key
+ * @param value
+ */
 {template .addBranchParameter}
     <div id="jenkins-form-{$count}" class="jenkins-form">
         {call bitbucket.component.branchSelector.field}

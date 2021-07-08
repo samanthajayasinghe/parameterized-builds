@@ -57,6 +57,8 @@ define('jenkins/parameterized-build-pullrequest', [
                     var type = $(dialog.$el.find('#build-param-value-' + index)[0]).attr('class');
                     if (type.indexOf("checkbox") > -1) {
                         value = dialog.$el.find('#build-param-value-' + index)[0].checked;
+                    } else if (type.indexOf("hiddenParam") > -1) {
+                        key = $(dialog.$el.find('#build-param-value-' + index)[0]).attr('data');
                     } else if (type.indexOf("hidden") > -1) {
                         value = value.replace('refs/heads/','');
                     }
@@ -94,6 +96,13 @@ define('jenkins/parameterized-build-pullrequest', [
                             html += com.kylenicholls.stash.parameterizedbuilds.jenkins.branchBuild.addBranchParameter({
                                 count: i,
                                 key: key,
+                                value: value
+                            });
+                        } else if (key.startsWith('hidden:')) {
+                            var actualKey = key.replace('hidden:', '');
+                            html += com.kylenicholls.stash.parameterizedbuilds.jenkins.branchBuild.addHiddenParameter({
+                                count: i,
+                                key: actualKey,
                                 value: value
                             });
                         } else {
